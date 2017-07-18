@@ -1,0 +1,118 @@
+extends ../layouts/default
+
+block intro
+	.container
+		case queryType
+			when 'list'
+				h3(class="headtitle") Publish Innovation Item (Step 3)
+			when 'edit'
+				h3(class="headtitle") Register Innovation Item (Step 2)
+			when 'create'
+				h3(class="headtitle") Register Innovation Item (Step 2)
+block js
+		script(src='/js/upfile/project_script.js')
+		script(src='/js/upfile/fileselect.js')
+		script(type='text/javascript').
+			var item = document.getElementById('dellink');
+			var index = document.URL.lastIndexOf("/");
+			var url = document.URL.substring(index+1);
+			if (item && url)
+				item.setAttribute("href", "/project/deletefile/"+url);
+
+
+block css
+		
+
+block content
+	.container
+		case queryType
+			when 'list'
+				table.table.table-hover.table-condensed
+					thead.text-center
+						tr
+							th.text-center Idea Name
+							th.text-center Abstraction
+							th.text-center Status
+							th.text-center Operation
+					tbody
+						each prj in projects
+							tr.text-left
+								td(style='vertical-align: middle;text-align:left')=prj.name
+								td(style='vertical-align: middle;text-align:center')=prj.description.substr(0,80)+"..."
+								td(style='vertical-align: middle;text-align:center')=prj.status
+								td(style='vertical-align: middle;padding:0px 0px').text-center
+									a(href='/project/edit/' + prj._id).btn.btn-link.bt-sm  Edit
+									a(href='/project/delete/' + prj._id).btn.btn-link.bt-sm Delete
+									if (prj.status == "published")
+										a(href="/project/draft/"+prj._id,style="color:red").btn.btn-link.bt-sm Hide
+										a(href='/itemreview/detail/' + prj._id).btn.btn-link.bt-sm Item Link
+									else
+										a(href="/project/published/"+prj._id,style="color:red").btn.btn-link.bt-sm Publish
+
+
+				a(href='/project/create').button.btn.btn-primary.btn-sm New Idea
+
+			when 'edit'
+			when 'create'
+				div.row
+					div.col-sm-8.col-md-6
+							//form(method='post' enctype='multipart/form-data' id='projectform')
+							form(method='post' id='projectform')
+								input(type='hidden', name='action', value='project')
+								//input(type='hidden',name='docsPath',value=formData.docsPath)
+								.form-group(class=validationErrors.name ? 'has-error' : null)
+									label Idea Name
+									input(type='text', name='name', placeholder='Idea Name',value=formData.name).input-sm.form-control
+
+								.form-group(class=validationErrors.category ? 'has-error' : null)
+									label Idea Type
+									if formData.category
+										select(name='category',value=formData.category).input-sm.form-control
+											each opt in option_list
+												option(value=opt.value,selected=(formData.category.toString()==opt.value)) #{opt.label}
+									else
+										select(name='category',value=formData.category).input-sm.form-control
+											each opt in option_list
+												option(value=opt.value) #{opt.label}
+
+								.form-group(class=validationErrors.description ? 'has-error' : null)
+									label Abstraction
+									textarea(name='description',placeholder='Describe your idea...',rows=4).form-control= formData.description
+
+								.form-group
+									input(type='checkbox',name='displayAttach',checked=formData.displayAttach)
+									label Public Attached Document 
+									
+								//.form-actions
+								//	button(type='submit').btn.btn-primary Next
+
+								label Attached Document : 
+								br
+								input(type='text',name='reviewDocs',id='fileUpload',placeholder='Attached file',style='height:25px;width:250px').input-sm
+								div(class="fileUpload btn btn-info" style="margin-top:0px;padding-top:0;padding-left:5px;padding-right:5px;padding-bottom:0")
+									span File										
+									input(type='file',name='fselect',onclick='fileSelect()',class='upload',id='uploadBtn')
+
+
+								div(class="fileUpload btn btn-info" style="margin-top:0px;padding-top:0;padding-left:5px;padding-right:5px;padding-bottom:0")
+									span Upload
+									input(type='submit',class='upload',id='uploadSubmit')
+
+								br
+								br
+								a(href="/doc/intro/2016_IISC_entry_sheet.pptx",download="iisc_entry_sheet.pptx",style="font-weight:bold") Download Entry Template
+								br
+								div(id="errorMessage")
+
+								div(id="progressBar",class="progress-bar progress-bar-success",role="progressbar",aria-valuenow="0",aria-valuemin="0",aria-valuemax="100",style="width:0%;display:none")
+
+								
+								br
+								div(id="uploadFileList")
+								br
+								.form-actions
+									button(type='submit').btn.btn-primary Next
+
+
+
+

@@ -1,0 +1,44 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h3(class="headtitle") Contact Us
+		
+block content
+	.container
+		if enquirySubmitted
+			br
+			p(style="font-size:16px") Thank you for contacting us. 
+			p(style="font-size:16px") We have received your enquiry and will respond to you later
+
+		else
+			.row
+				div.col-sm-8.col-md-6
+					form(method='post')
+						input(type='hidden', name='action', value='contact')
+						.form-group(class=validationErrors.name ? 'has-error' : null)
+							label Name
+							input(type='text', name='name.full', value=formData['name.full']).input-sm.form-control
+						.form-group(class=validationErrors.email ? 'has-error' : null)
+							label Email
+							input(type='email', name='email', value=formData.email).input-sm.form-control
+						.form-group
+							label Phone
+							input(type='text', name='phone', value=formData.phone, placeholder='(optional)').input-sm.form-control
+						.form-group(class=validationErrors.enquiryType ? 'has-error' : null)
+							label What are you contacting us about?
+							select(name='enquiryType').input-sm.form-control
+								option(value='') (select one)
+								each type in enquiryTypes
+									option(value=type.value, selected=formData.enquiryType == type.value)= type.label
+						.form-group(class=validationErrors.message ? 'has-error' : null)
+							label Message
+							textarea(name='message', placeholder='Leave us a message...' rows=4).form-control= formData.message
+						.form-actions
+							button(type='submit').btn.btn-primary Send
+				div(style="padding-left:50px").col-sm-8.col-md-6
+					label Contacts:
+					br
+					p(style="text-indent:1em;font-weight:bold;margin-top:0px;margin-bottom:0px") Fei.Liu@sony.com.cn 18515205596	
+					p(style="text-indent:1em;font-weight:bold;margin-top:0px;margin-bottom:0px") CherryA.Cai@sony.com.cn 0510-81120205
+

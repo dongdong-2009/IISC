@@ -1,0 +1,189 @@
+extends ../layouts/default
+
+block intro
+	.container
+		if(queryType == "detail") 
+			h3(class="headtitle")  Idea Detail
+		else
+			h3(class="headtitle")  All Ideas
+
+block js	
+	script(src='/js/upfile/itemreview_script.js')
+
+block css
+	link(href="/styles/customcss/starstyle.css", rel="stylesheet")
+
+block content
+	.container
+		case queryType
+			when 'detail'
+				div.row(style="margin-left:20px")
+					div.col-sm-10
+						h3=project.name
+						h5
+							//span Post by #{project.user? project.user[0].name : ''}, #{project.updateTime.toString().substr(0,21)}
+							span Post at #{project.updateTime.toString().substr(0,21)}
+						each category in categories
+							if(category.value == project.category.toString()) 
+								span(class="label label-success")=category.label
+
+				div.row(style="margin-left:20px")
+					div.col-sm-10
+						if (project.docsPath)
+							-var filestr = project.docsPath;
+							-filestr='/'+filestr.substr(7);
+							div(style="height:700px;margin-top:0px;padding-top:0;padding-left:5px;padding-right:5px;padding-bottom:10px")
+								object(data=filestr,type="application/pdf",width="100%",height="100%" )
+					
+						br
+
+
+
+				div.row(style="margin-left:20px")
+					div.col-sm-10
+							br
+							h4 Abstraction
+							//p(style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif")=project.description
+							div!=project.description
+							br
+							//if(project.displayAttach)
+							div(id="uploadFileList")
+							br
+
+				div.row(style="margin-left:20px")
+					div.col-sm-10
+							h4 Average Rating
+							fieldset(class="rating1")
+								if(averageRating && averageRating > 4)
+									label(class = "full" style="color:yellow")
+								else
+									label(class = "full")
+								if(averageRating && averageRating > 3)
+									label(class = "full" style="color:yellow")
+								else
+									label(class = "full")
+								if(averageRating && averageRating > 2)
+									label(class = "full" style="color:yellow")
+								else
+									label(class = "full")
+								if(averageRating && averageRating > 1)
+									label(class = "full" style="color:yellow")
+								else
+									label(class = "full")
+								if(averageRating && averageRating > 0)
+									label(class = "full" style="color:yellow")
+								else
+									label(class = "full")
+
+							br
+							br
+
+				div.row(style="margin-left:20px")
+					div.col-sm-10
+						h4 Leave a Comment
+						
+						form(method='post',enctype='multipart/form-data',class=validationErrors.description ? 'has-error' : null)
+							.form-group
+								textarea(name='content', rows=4).form-control
+							.form-group
+								fieldset(class="rating")
+									input(type="radio" id="star5" name="rating" value="5")
+									label(class = "full" for="star5" title="Awesome")
+									input(type="radio" id="star4" name="rating" value="4" )
+									label(class = "full" for="star4" title="Pretty Good")
+									input(type="radio" id="star3" name="rating" value="3" checked)
+									label(class = "full" for="star3" title="Nice")
+									input(type="radio" id="star2" name="rating" value="2")
+									label(class = "full" for="star2" title="Need Improve")
+									input(type="radio" id="star1" name="rating" value="1")
+									label(class = "full" for="star1" title="Sucks big time")
+									br
+							.form-actions
+								button(type='submit').btn.btn-primary.btn-sm Submit
+
+						br
+
+						div(class="col-sm-10")
+							each comment in comments
+								if (comment.fromUserName[0] && comment.fromUserName[0].name)
+									h5(style="color:#339FF7")=comment.fromUserName[0].name+"      "
+										if(comment.updateDate) 
+											small=comment.updateDate.toString().substr(0,21)
+										br
+										fieldset(class="rating1")
+											if(comment.rating && comment.rating>4)
+												label(class = "full" style="color:yellow")
+											else
+												label(class = "full")
+											if(comment.rating && comment.rating>3)
+												label(class = "full" style="color:yellow")
+											else
+												label(class = "full")
+											if(comment.rating && comment.rating>2)
+												label(class = "full" style="color:yellow")
+											else
+												label(class = "full")
+											if(comment.rating && comment.rating>1)
+												label(class = "full" style="color:yellow")
+											else
+												label(class = "full")
+											if(comment.rating && comment.rating>0)
+												label(class = "full" style="color:yellow")
+											else
+												label(class = "full")
+
+								br
+								p=comment.content
+									if(comment.canDelete)
+										a(style="margin-left:20px",href='/itemreview/deletecomment/'+project._id +'/'+comment._id) Delete
+
+								br
+
+			when 'list'
+				div(class="container-fluid")
+					div(class="row content")
+						div(class="col-sm-9")
+							h4 
+								small RECENT POSTS
+								div(style="float: right;")
+									small SORT BY:        
+									a( href="/itemreview/sort/-time",style="font-size:10px")="Time"
+									label 
+									a( href="/itemreview/sort/-hot",style="font-size:10px")=" Hot "
+							each prj in projects	
+
+								hr
+								h4
+									a(href="/itemreview/detail/"+prj._id.toString())=prj.name
+								
+								h6(style="color:#339FF7")
+									//span Post by #{prj.user[0] ? prj.user[0].email : ''}, #{prj.updateTime.toString().substr(0,21)}
+									span Post by #{prj.user[0] ? prj.user[0].email : ''}
+									//span(class="glyphicon glyphicon-time")	
+									//span(class="label label-danger") BusinessModel
+									//span(class="label label-primary") Technical
+								
+								
+								p(style="text-indent:2em")!=prj.description
+								br
+								if(prj.docsPath)
+									img(src="/"+prj.docsPath.slice(7).replace('.pdf','-0.png') class="img-rounded" alt="Cinque Terre" height="450")
+								br
+
+						div(class="col-sm-3 sidenav")
+							h4(class="headtitle")  Innovation Category
+							ul(class="nav nav-pills nav-stacked")
+								if(!selectedCategory && selectedCategory.length==0)
+									li(class="active") 
+										a(href="/itemreview/") All Categories
+								else
+									li 
+										a(href="/itemreview/") All Categories
+
+								each item in categories
+									if(selectedCategory==item.value.toString())
+										li(class="active") 
+											a(href='/itemreview/'+item.value.toString()) #{item.label}
+									else
+										li 
+											a(href='/itemreview/'+item.value.toString()) #{item.label}

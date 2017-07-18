@@ -1,0 +1,67 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h3(class="headtitle") Register Author Information (Step 1)
+		
+block content
+	.container
+		if userSubmitted
+			br
+			p(style="font-size:16px") Thank you for registering.
+		else
+			.row: .col-sm-8.col-md-6
+				form(method='post')
+					input(type='hidden', name='action', value='register')
+					.form-group(class=validationErrors.name ? 'has-error' : null)
+						label Name
+						input(type='text', name='name', placeholder='Author Name',value=formData.name).input-sm.form-control
+
+					.form-group(class=validationErrors.email ? 'has-error' : null)
+						label Email
+						input(type='email', name='email', placeholder='xxxxxx@sony.com.cn',value=formData.email).input-sm.form-control
+
+
+					.form-group(class=validationErrors.depart ? 'has-error' : null)
+						label Depart
+						select(name='depart').input-sm.form-control
+							option(value='') (Select One)
+							option(value='1') CSMC-Consumer Sales & Mktg Co.
+							option(value='2') EDMC-Electronic Devices Marketing China
+							option(value='3') PSC- Professional Solutions China
+							option(value='4') SGMOC-Sony Global Manufacturing & Operations-China
+							option(value='5') ATG-Accounting and Taxation Group
+							option(value='6') CCOM & CI-Corporate Communications & CI Management Group
+							option(value='7') CSC-China Software Center
+							option(value='8') CWSC-Corporate Workplace Solutions, China
+							option(value='9') EAG-External Affairs Gp
+							option(value='10') HRG-Human Resources Group
+							option(value='11') IPSG-Intellectual Property&Standardization Group
+							option(value='12') ISCN-Information Systems China
+							option(value='13') LCG-Legal & Compliance Group
+							option(value='14') Product Quality & Environment Group
+							option(value='15') SCRL-Sony China Research Laboratory
+							option(value='16') SSCS-SSCS China
+							option(value='17') BRM Office
+							option(value='18') CC-Creative Center
+							option(value='19') CPCD-Corporate Planning & Control Division
+							option(value='20') CRCD-China Risk & Control Division
+							option(value='21') EGISD-Electronics Global Information Security Division
+							option(value='22') FND-Finance Div
+							option(value='23') Life Science Business Division
+							option(value='24') Network Business Division
+							option(value='25') New Business Incubation Division
+							option(value='26') SCE-SCE Shanghai Div
+							option(value='27') TV Engineering Division
+							option(value='28') SVPC
+							option(value='29') SSGE
+							option(value='30') SEH
+							option(value='31') SGS
+
+					//input(type='hidden', name='password', value='password')
+					.form-group(class=validationErrors.password ? 'has-error' : null)
+						label Password
+						input(type='password', name='password', placeholder='Input your password',value=formData.password).input-sm.form-control
+
+					.form-actions
+						button(type='submit').btn.btn-primary Next

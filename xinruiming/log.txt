@@ -1,0 +1,7 @@
+{ [Error: Cannot find module '../build/Release/bson'] code: 'MODULE_NOT_FOUND' }
+
+------------------------------------------------
+KeystoneJS Started:
+inova is ready on port 80
+------------------------------------------------
+

@@ -1,0 +1,75 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h3(class="headtitle") Get Visitor ID
+		
+block content
+	.container
+		if visitorSubmitted
+			br
+			p(style="font-size:16px") Thank you for visiting us. 
+			p(style="font-size:16px") We have received your information and here is your visitor id : 
+				h1(style="color:red") #{v_id}
+			p(style="font-size:16px") Please apply the permission for your Ucard by yourself.
+
+		else
+			.row
+				div.col-sm-8.col-md-6
+					form(method='post')
+						input(type='hidden', name='action', value='menu')
+						.form-group(class=validationErrors.name ? 'has-error' : null)
+							label Name
+							input(type='text', name='name.full', value=formData['name.full']).input-sm.form-control
+						.form-group(class=validationErrors.email ? 'has-error' : null)
+							label Email
+							input(type='email', name='email', value=formData.email).input-sm.form-control
+						
+						.form-group(class=validationErrors.depart ? 'has-error' : null)
+						label Depart
+						select(name='depart').input-sm.form-control
+							option(value='') (Select One)
+							option(value='1') CSMC-Consumer Sales & Mktg Co.
+							option(value='2') EDMC-Electronic Devices Marketing China
+							option(value='3') PSC- Professional Solutions China
+							option(value='4') SGMOC-Sony Global Manufacturing & Operations-China
+							option(value='5') ATG-Accounting and Taxation Group
+							option(value='6') CCOM & CI-Corporate Communications & CI Management Group
+							option(value='7') CSC-China Software Center
+							option(value='8') CWSC-Corporate Workplace Solutions, China
+							option(value='9') EAG-External Affairs Gp
+							option(value='10') HRG-Human Resources Group
+							option(value='11') IPSG-Intellectual Property&Standardization Group
+							option(value='12') ISCN-Information Systems China
+							option(value='13') LCG-Legal & Compliance Group
+							option(value='14') Product Quality & Environment Group
+							option(value='15') SCRL-Sony China Research Laboratory
+							option(value='16') SSCS-SSCS China
+							option(value='17') BRM Office
+							option(value='18') CC-Creative Center
+							option(value='19') CPCD-Corporate Planning & Control Division
+							option(value='20') CRCD-China Risk & Control Division
+							option(value='21') EGISD-Electronics Global Information Security Division
+							option(value='22') FND-Finance Div
+							option(value='23') Life Science Business Division
+							option(value='24') Network Business Division
+							option(value='25') New Business Incubation Division
+							option(value='26') SCE-SCE Shanghai Div
+							option(value='27') TV Engineering Division
+
+						.form-group(class=validationErrors.location ? 'has-error' : null)
+						label Location
+						select(name='location').input-sm.form-control
+							option(value='') (Select One)
+							option(value='1') BeiJing(china)
+							option(value='2') ShangHai(china)
+
+
+						.form-actions
+							button(type='submit').btn.btn-primary Send
+				div(style="padding-left:50px").col-sm-8.col-md-6
+					label Contacts:
+					br
+					p(style="text-indent:1em;font-weight:bold;margin-top:0px;margin-bottom:0px") Fei.Liu@sony.com.cn 18515205596	
+					p(style="text-indent:1em;font-weight:bold;margin-top:0px;margin-bottom:0px") CherryA.Cai@sony.com.cn 0510-81120205
+

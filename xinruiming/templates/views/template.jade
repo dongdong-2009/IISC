@@ -1,0 +1,99 @@
+extends ../layouts/default
+
+block js
+		script(src='/js/upfile/material_script.js')
+		script(src='/js/upfile/fileselect_material.js')
+		script(type='text/javascript').
+			var item = document.getElementById('dellink');
+			var index = document.URL.lastIndexOf("/");
+			var url = document.URL.substring(index+1);
+			if (item && url)
+				item.setAttribute("href", "/project/deletefile/"+url);
+
+
+block css
+
+block intro
+	.container
+		h3(class="headtitle") Download
+		br
+		h5 "Please download the template according to the classification and category of your innovation idea(refer to notice)."
+		br
+		br
+		h5 How to use
+		a(href="/doc/Template_howtouse.pdf",) Template_howtouse.pdf
+		br
+		br
+		h5 Supplementary Handout
+		a(href="/doc/IISC_handout_template.pptx",) IISC_handout_template.pptx
+		br
+		br
+		h5 Current improvement  Technique Innovation
+		a(href="/doc/Template_Tech_Innovation.pptx",) Template_Tech_Innovation.pptx
+		br
+		br
+		h5 Current improvement Other	
+		a(href="/doc/Template_Other.pptx",) Template_Other.pptx
+		br
+		br
+		h5 Current improvement  Management Innovation		
+		a(href="/doc/Template_Management_Innovation.pptx",) Template_Management_Innovation.pptx
+		br
+		br
+		h5 Current improvement Knowledge Innovation			
+		a(href="/doc/Template_Knowledge_Innovation.pptx",) Template_Knowledge_Innovation.pptx
+		br
+		br
+		h5 Definitely New Idea Technique Innovation				
+		a(href="/doc/Template_Tech_Innovation_DNI.pptx",) Template_Tech_Innovation_DNI.pptx
+		br
+		br
+		h5 Definitely New Idea Service Innovation				
+		a(href="/doc/Template_Service_Innovation_DNI.pptx",) Template_Service_Innovation_DNI.pptx
+		br
+		br
+		h5 Definitely New Idea Other					
+		a(href="/doc/Template_Other_DNI.pptx",) Template_Other_DNI.pptx
+		br
+		br
+		h5 Definitely New Idea Knowledge Innovation				
+		a(href="/doc/Template_Knowledge_Innovation_DNI.pptx",) Template_Knowledge_Innovation_DNI.pptx
+		br
+		br
+		h3(class="headtitle") Upload
+		h4 <font color="red">Please notice upload is ended!!! 				
+		div.row
+			div.col-sm-8.col-md-6
+					//form(method='post' enctype='multipart/form-data' id='projectform')
+					form(method='post' id='projectform')
+						input(type='hidden', name='action', value='project')
+						//input(type='hidden',name='docsPath',value=formData.docsPath)
+							
+						//.form-actions
+						//	button(type='submit').btn.btn-primary Next
+
+					//	label Attached Document : 
+						br
+						input(type='text',name='reviewDocs',id='fileUpload',placeholder='Attached file',style='height:25px;width:250px').input-sm
+						div(class="fileUpload btn btn-info" style="margin-top:0px;padding-top:0;padding-left:5px;padding-right:5px;padding-bottom:0")
+							span File										
+							input(type='file',name='fselect',onclick='fileSelect()',class='upload',id='uploadBtn')
+
+
+						div(class="fileUpload btn btn-info" style="margin-top:0px;padding-top:0;padding-left:5px;padding-right:5px;padding-bottom:0")
+							span Upload
+							input(type='submit',class='upload',id='uploadSubmit')
+
+						br
+						br
+						br
+						div(id="errorMessage")
+
+						div(id="progressBar",class="progress-bar progress-bar-success",role="progressbar",aria-valuenow="0",aria-valuemin="0",aria-valuemax="100",style="width:0%;display:none")
+
+						
+						br
+						div(id="uploadFileList")
+						br  
+
+

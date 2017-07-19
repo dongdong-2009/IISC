@@ -34,14 +34,27 @@ exports.initLocals = function(req, res, next) {
 //				{label: 'Selection',  	key: 'selection', 	href: '/visit'},
 //				]},
 			{ label: 'Contact',		key: 'contact',		href: '/contact' },
-			{ label: 'Visit',		key: 'visit',		href: '/visit' },
-			{ label: 'Template',		key: 'template',	href: '/template' },
-			
+      //TODO delete on 2017/07/03 for requirement_01
+			// { label: 'Visit',		key: 'visit',		href: '/visit' },
+			// { label: 'Template',		key: 'template',	href: '/template' },
+      // TODO add by wtshuai 20170620
+			{ label: 'Themes',		key: 'themes' },
+      { label: 'Spacelab',		key: 'thText'}
 			
 		];
 		locals.notice =[ { label: 'IISC Calendar',		key: 'calendar',		href: '/calendar' },
 				{ label: 'Selection Result',		key: 'result',		href: '/result' },						
-		];	
+		];
+
+    locals.themes =[{label:'Cerulean',key:'Cerulean'},{label:'Journal',key:'Journal'},
+			{label:'Paper',key:'Paper'},{label:'Readable',key:'Readable'},{label:'Slate',key:'Slate'},
+			{label:'Cosmo',key:'Cosmo'},{label:'Custom',key:'Custom'},
+      {label:'Cyborg',key:'Cyborg'},{label:'Darkly',key:'Darkly'},
+      {label:'Flatly',key:'Flatly'},{label:'Lumen',key:'Lumen'},
+      {label:'Sandstone',key:'Sandstone'},{label:'Simplex',key:'Simplex'},
+      {label:'Spacelab',key:'Spacelab'},{label:'Superhero',key:'Superhero'},
+      {label:'United',key:'United'},{label:'Yeti',key:'Yeti'},
+		];
 	} else {
 		locals.navLinks = [
 			{ label: 'Home',		key: 'home',		href: '/' },
@@ -52,12 +65,26 @@ exports.initLocals = function(req, res, next) {
 			//	]},
 			{ label: 'Notice',		key: 'notice',		href: '/notice' },
 			{ label: 'Contact',		key: 'contact',		href: '/contact' },
-			{ label: 'Visit',		key: 'visit',		href: '/visit' },
-			{ label: 'Template',		key: 'template',	href: '/template' },
+			//TODO delete on 2017/07/03 for requirement_01
+      //{ label: 'Visit',		key: 'visit',		href: '/visit' },
+			//{ label: 'Template',		key: 'template',	href: '/template' },
+      
+      // TODO add by wtshuai 20170620
+			{ label: 'Themes',		key: 'themes'},
+      { label: 'Spacelab',		key: 'thText'}
 		];
 		locals.notice =[ { label: 'IISC Calendar',		key: 'calendar',		href: '/calendar' },
 				{ label: 'Selection Result',		key: 'result',		href: '/result' },						
-		];	
+		];
+    locals.themes =[{label:'Cerulean',key:'Cerulean'},{label:'Journal',key:'Journal'},
+			{label:'Paper',key:'Paper'},{label:'Readable',key:'Readable'},{label:'Slate',key:'Slate'},
+			{label:'Cosmo',key:'Cosmo'},{label:'Custom',key:'Custom'},
+      {label:'Cyborg',key:'Cyborg'},{label:'Darkly',key:'Darkly'},
+      {label:'Flatly',key:'Flatly'},{label:'Lumen',key:'Lumen'},
+      {label:'Sandstone',key:'Sandstone'},{label:'Simplex',key:'Simplex'},
+      {label:'Spacelab',key:'Spacelab'},{label:'Superhero',key:'Superhero'},
+      {label:'United',key:'United'},{label:'Yeti',key:'Yeti'},
+		];    
 	}
 	
 	

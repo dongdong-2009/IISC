@@ -11,7 +11,7 @@ html
 
 		title= title || 'IISC'
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
-
+		script(src='/js/theme/changeTheme.js')
 		//- Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production.
 	
@@ -19,7 +19,7 @@ html
 		link(href="/styles/customcss/gstyle.css", rel="stylesheet")
 
 		link(href="/styles/site.min.css", rel="stylesheet")
-		link(href="/styles/themes/Spacelab.min.css", rel="stylesheet")
+		link(href="/styles/themes/Spacelab.min.css", rel="stylesheet",name='curtTheme')
 
 		//link(href="/styles/themes/Darkly.min.css", rel="stylesheet")
 		//link(href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",rel="stylesheet")
@@ -68,8 +68,17 @@ html
 											ul.dropdown-menu(style="min-width:90px")
 												each notic in notice
 													li(class=(section == notic.key ? 'active' : null) ): a(href=notic.href)= notic.label	
+								else if (link.label == "Themes")
+									if themes && themes.length
+										li.dropdown
+											a.dropdown-toggle(href=link.href, data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
+												| Themes
+												span.caret
+											ul.dropdown-menu(style="min-width:90px")
+												each theme in themes
+													li(class=(section == theme.key ? 'active' : null,theme.key),onclick="changeTo(this.className)",onmouseover="changeToHand(this.className)"): a(href=theme.href)= theme.label	
 								else
-									li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
+									li(class=(section == link.key ? 'active' : null)): a(href=link.href,name=link.key)= link.label
 						ul.nav.navbar-nav.navbar-right
 																		
 							if user

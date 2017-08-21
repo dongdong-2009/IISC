@@ -69,6 +69,7 @@ exports = module.exports = function(app) {
 	app.get('/itemreview/listfile/:prjid', middleware.requireUser, routes.views.itemreview.listfile);
 
 	app.all('/contact', routes.views.contact);
+	app.all('/password', routes.views.password);
 	app.all('/visit', routes.views.visit);
 	app.all('/register', routes.views.register);
 	app.get('/calendar', routes.views.calendar);

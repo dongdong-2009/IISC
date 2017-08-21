@@ -34,15 +34,17 @@ exports.initLocals = function(req, res, next) {
 //				{label: 'Selection',  	key: 'selection', 	href: '/visit'},
 //				]},
 			{ label: 'Contact',		key: 'contact',		href: '/contact' },
+			{ label: 'Password',		key: 'password',		href: '/password' },
       //TODO delete on 2017/07/03 for requirement_01
 			// { label: 'Visit',		key: 'visit',		href: '/visit' },
 			// { label: 'Template',		key: 'template',	href: '/template' },
       // TODO add by wtshuai 20170620
 			{ label: 'Themes',		key: 'themes' },
-      { label: 'Spacelab',		key: 'thText'}
+      		{ label: 'Spacelab',		key: 'thText'}
 			
 		];
-		locals.notice =[ { label: 'IISC Calendar',		key: 'calendar',		href: '/calendar' },
+		locals.notice =[ 
+				{ label: 'IISC Calendar',		key: 'calendar',		href: '/calendar' },
 				{ label: 'Selection Result',		key: 'result',		href: '/result' },						
 		];
 
